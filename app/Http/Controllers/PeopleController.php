@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Person;
 use Illuminate\Http\RedirectResponse;
+use App\Models\FollowUp;
 
 class PeopleController extends Controller
 {
@@ -28,8 +29,12 @@ class PeopleController extends Controller
             $query->where('status', 'not_contacted');
         })->get();
 
-         return view('people.list');
+         return view('people.index')->with('not_contacted_people', $not_contacted_people);
     }
+
+    // public function add() {
+    //     return view('people.add');
+    // }
 
     # Store a new person
     public function store(Request $request): RedirectResponse {
@@ -38,6 +43,12 @@ class PeopleController extends Controller
         'contact' => 'required',
         'source' => 'required'
     ]);
+
+        $person = Person::create($validated);
+        FollowUp::create([
+            'person_id' => $person->id,
+            'status' => 'not_contacted'
+        ]);
 
         return redirect('/');
     }
