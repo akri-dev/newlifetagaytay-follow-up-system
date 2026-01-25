@@ -1,7 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PeopleController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+# Show People List Not Contacted
+Route::get('/', [PeopleController::class, 'index']);
+
+# Store a Person
+Route::post('/store', [PeopleController::class, 'store']);
+
