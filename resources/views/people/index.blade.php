@@ -28,7 +28,8 @@
                         <td>{{ $person->contact }}</td>
                         <td>{{ $person->source }}</td>
                         <td>{{ $person->followUp->status->value == 'not_contacted' ? 'Not Contacted' : '' }}</td>
-                        <td>{{ $person->followUp->note }}</td>
+                        {{-- removed this for now - reserved for editing view --}}
+                        {{-- <td>{{ $person->followUp->note }}</td> --}}
                         <td><a href="{{ route('edit', $person->id) }}" class="btn btn-secondary btn-sm" title="Edit"><i class="fa-solid fa-pen"></i></a></td>
                     </tr>
                     @endforeach
