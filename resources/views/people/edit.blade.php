@@ -19,7 +19,8 @@
             @method('PATCH')
             <div class="form-group">
                 <label class="h5" for="status">Status</label>
-                <select id="status" name="status" class="form-select">
+                <input class="form-control" @disabled(true) value="{{ $person_details->full_name }}">
+                <select id="status" name="status" class="form-select mt-3">
                     <option value="not_contacted" @selected($person_details->followUp->status == 'not_contacted')>
                         Not Contacted
                     </option>
