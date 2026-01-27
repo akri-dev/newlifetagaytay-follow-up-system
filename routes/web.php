@@ -12,5 +12,7 @@ Route::get('/', [PeopleController::class, 'index'])->name('index');
 Route::post('/store', [PeopleController::class, 'store'])->name('store');
 
 # Show Edit Follow-Up View
-Route::get('/edit', [FollowUpController::class, 'edit'])->name('edit');
+Route::get('/edit/{id}', [FollowUpController::class, 'edit'])->name('edit');
 
+# Update Follow-Up Status
+Route::patch('/edit/{id}/update', [FollowUpController::class, 'update'])->name('update');

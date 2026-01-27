@@ -23,7 +23,7 @@
                 @if($not_contacted_people->isNotEmpty())
                     @foreach ($not_contacted_people as $person)
                     <tr>
-                        <th scope="row">{{ $person->followUp->id }}</th>
+                        <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $person->full_name }}</td>
                         <td>{{ $person->contact }}</td>
                         <td>{{ $person->source }}</td>

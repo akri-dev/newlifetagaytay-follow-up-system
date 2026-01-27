@@ -8,7 +8,10 @@ class FollowUp extends Model
 {
     protected $fillable = [
         'person_id',
-        'status'
+        'status',
+        'note',
+        'followed_up_by',
+        'followed_up_at'
     ];
    
     # For Follow-Up Enumeration

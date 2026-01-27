@@ -13,28 +13,41 @@ class FollowUpController extends Controller
 {
     # Show view to edit details of person follow-up
     public function edit($id) {
-        $person_details = Person::all($id);
-    
-        return view('people.edit')->$person_details->followUp;
+        $person_details = Person::with('followUp')->findOrFail($id);
+
+        return view('people.edit', compact('person_details'));
     }
 
-    # Store a updated details person
-    public function store(Request $request): RedirectResponse {
+    # Store an updated details of a person
+    public function update(Request $request, $id): RedirectResponse {
         $validated = $request->validate([
         'status' => [
             'required', 
             new Enum(Status::class)
         ],
-        'description' => [
+        'note' => [
             'required',
             'string',
-            'min:10',
             'max:30000', // Set a reasonable upper limit
         ],
         'followed_up_by' => 'required|max:255',
         'followed_up_at' => now()
     ]);
 
+    $person = Person::findOrFail($id);
+
+    $person->followUp()->updateOrCreate(
+        ['person_id' => $person->id], // Match criteria
+        [
+            'status'         => $validated['status'],
+            'note'    => $validated['note'],
+            'followed_up_by' => $validated['followed_up_by'],
+            'followed_up_at' => now(), // Set the current timestamp
+        ]
+    );
+
         return redirect('/');
     }
+    
+    
 }
