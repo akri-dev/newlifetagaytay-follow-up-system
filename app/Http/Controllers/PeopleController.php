@@ -26,7 +26,7 @@ class PeopleController extends Controller
         // callback function a query
         // where status in follow-up table/relationship is not_contacted
         $not_contacted_people = Person::whereHas('followUp', function ($query) { 
-            $query->where('status', 'not_contacted');
+            $query->whereIn('status', ['not_contacted', 'contacted']);
         })->get();
 
          return view('people.index')->with('not_contacted_people', $not_contacted_people);
